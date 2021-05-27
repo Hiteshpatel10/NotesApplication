@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/notesAddFragment"
         android:name="com.example.notes.notesAdd.NotesAddFragment"
-        android:label="NotesAddFragment" />
+        android:label="NotesAddFragment" >
+        <action
+            android:id="@+id/action_notesAddFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.example.notes.notesMain.NotesFragment"

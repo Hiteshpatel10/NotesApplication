@@ -1,6 +1,7 @@
 package com.example.notes.notesAdd
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,13 +36,13 @@ class NotesAddFragment : Fragment() {
         val viewModelFactory = NotesAddViewModelFactory(dataBase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(NotesAddViewModel::class.java)
 
-        binding.submit.setOnClickListener{
+        binding.submit.setOnClickListener {
             val title = binding.noteTitleText.text.toString()
             val description = binding.noteDescriptionText.text.toString()
 
-            if(description.isNotEmpty()){
-                viewModel.insert(Notes(noteTitle = title,noteText = description))
-                findNavController().navigate(R.id.notesFragment)
+            if (description.isNotEmpty()) {
+                viewModel.insert(Notes(noteTitle = title, noteText = description))
+                Log.i("notesAdd", "suces")
             }
         }
 
