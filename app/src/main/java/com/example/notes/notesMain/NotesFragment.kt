@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.notes.NotesListAdapter
 import com.example.notes.R
 import com.example.notes.database.Notes
@@ -46,6 +47,6 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
     }
 
     override fun onItemClicked(note: Notes) {
-
+        findNavController().navigate(R.id.notesAddFragment)
     }
 }
