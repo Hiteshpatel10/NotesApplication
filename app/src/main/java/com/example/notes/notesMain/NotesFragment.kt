@@ -1,19 +1,17 @@
 package com.example.notes.notesMain
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.notes.NotesListAdapter
 import com.example.notes.R
 import com.example.notes.database.Notes
 import com.example.notes.database.NotesDatabase
-import com.example.notes.databinding.FragmentNotesAddBinding
 import com.example.notes.databinding.FragmentNotesBinding
-import com.example.notes.notesAdd.NotesAddViewModel
 
 class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
 
@@ -23,7 +21,7 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater,
@@ -40,7 +38,9 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
             viewModelFactory
         ).get(NotesViewModel::class.java)
 
-        binding.notesRecyclerView.adapter = ada
+        //Adapter and RecyclerView
+        val adapter = NotesListAdapter(this)
+        binding.notesRecyclerView.adapter = adapter
 
         return binding.root
     }
