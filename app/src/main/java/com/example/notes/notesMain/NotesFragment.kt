@@ -44,6 +44,9 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
         val adapter = NotesListAdapter(this)
         binding.notesRecyclerView.adapter = adapter
 
+        //Observers
+
+
         //OnClickListeners
         binding.floatingActionButton.setOnClickListener{
             findNavController().navigate(R.id.notesAddFragment)
