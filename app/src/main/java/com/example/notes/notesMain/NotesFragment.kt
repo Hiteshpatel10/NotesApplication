@@ -31,7 +31,7 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
             false
         )
         //Initialization
-        val application = requireNotNull(activity).application
+        val application = requireNotNull(this.activity).application
         val database = NotesDatabase.getDatabase(application).getNotesDao()
         val viewModelFactory = NotesViewModelFactory(database)
         viewModel = ViewModelProvider(
@@ -39,9 +39,15 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
             viewModelFactory
         ).get(NotesViewModel::class.java)
 
+
         //Adapter and RecyclerView
         val adapter = NotesListAdapter(this)
         binding.notesRecyclerView.adapter = adapter
+
+        //OnClickListeners
+        binding.floatingActionButton.setOnClickListener{
+            findNavController().navigate(R.id.notesAddFragment)
+        }
 
         return binding.root
     }

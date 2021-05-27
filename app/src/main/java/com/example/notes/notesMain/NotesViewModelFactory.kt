@@ -9,7 +9,7 @@ import java.lang.IllegalArgumentException
 class NotesViewModelFactory(private val dataSource: NotesDao): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(NotesViewModel::class.java)){
-            return NotesViewModelFactory(dataSource) as T
+            return NotesViewModel(dataSource) as T
         }
         throw IllegalArgumentException("NotesViewModel: Unknown Error")
     }
