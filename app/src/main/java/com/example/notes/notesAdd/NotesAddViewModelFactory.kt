@@ -9,7 +9,7 @@ import com.example.notes.database.NotesDao
 class NotesAddViewModelFactory(private val dataSource: NotesDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(NotesAddViewModel::class.java)){
-            return NotesViewModelFactory(dataSource) as T
+            return NotesAddViewModel(dataSource) as T
         }
         throw IllegalArgumentException("NotesAddViewModel: Unknown Error")
     }
