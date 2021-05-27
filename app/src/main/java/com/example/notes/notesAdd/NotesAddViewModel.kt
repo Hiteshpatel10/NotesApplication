@@ -7,5 +7,5 @@ import com.example.notes.database.NotesDao
 
 class NotesAddViewModel(database: NotesDao): ViewModel() {
 
-    val allNOtes: LiveData<List<Notes>> =
+
 }
