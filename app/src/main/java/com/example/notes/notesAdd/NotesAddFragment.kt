@@ -33,7 +33,8 @@ class NotesAddFragment : Fragment() {
         )
 
         //Initialize
-        val dataBase = NotesDatabase.getDatabase(requireContext()).getNotesDao()
+        val application = requireNotNull(this.activity).application
+        val dataBase = NotesDatabase.getDatabase(application).getNotesDao()
         val viewModelFactory = NotesAddViewModelFactory(dataBase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(NotesAddViewModel::class.java)
 
@@ -41,6 +42,9 @@ class NotesAddFragment : Fragment() {
             val title = binding.noteTitleText.text.toString()
             val description = binding.noteDescriptionText.text.toString()
 
+            if (description.isNotEmpty()) {
+                viewModel.insert(Notes(noteTitle = title, noteText = description))
+            }
 
         }
 
