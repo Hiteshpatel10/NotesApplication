@@ -19,7 +19,7 @@ class NotesListAdapter(private val listener: INotesListAdapter) : RecyclerView.A
         val viewHolder = ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.notes_list_recyclerview, parent, false)
         )
-        viewHolder.textView.setOnClickListener {
+        viewHolder.cardView.setOnClickListener {
             listener.onItemClicked(allNotes[viewHolder.adapterPosition])
         }
         return viewHolder
@@ -36,10 +36,13 @@ class NotesListAdapter(private val listener: INotesListAdapter) : RecyclerView.A
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView.findViewById(R.id.notesText)
+        val cardView: View = itemView.findViewById(R.id.cardViewRecycler)
+        private val titleTextView: TextView = itemView.findViewById(R.id.titleTextRecycler)
+        private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextRecycler)
 
-        fun bind(text: Notes) {
-            textView.text = text.noteText
+        fun bind(note: Notes) {
+            titleTextView.text = note.noteTitle
+            descriptionTextView.text = note.noteText
         }
     }
 

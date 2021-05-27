@@ -1,15 +1,15 @@
 package com.example.notes.notesAdd
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.notes.R
 import com.example.notes.database.Notes
 import com.example.notes.database.NotesDatabase
@@ -17,6 +17,7 @@ import com.example.notes.databinding.FragmentNotesAddBinding
 
 class NotesAddFragment : Fragment() {
 
+    private val args: NotesAddFragmentArgs by navArgs()
     private lateinit var binding: FragmentNotesAddBinding
     private lateinit var viewModel: NotesAddViewModel
 
@@ -38,9 +39,18 @@ class NotesAddFragment : Fragment() {
         val viewModelFactory = NotesAddViewModelFactory(dataBase)
         viewModel = ViewModelProvider(this, viewModelFactory).get(NotesAddViewModel::class.java)
 
+        if(args.description.isNotEmpty()){
+            fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
+            val title = args.titleText
+            val description = args.description
+
+            binding.noteTitleTextView.text = title.toEditable()
+            binding.noteDescriptionTextView.text = description.toEditable()
+        }
+
         binding.submit.setOnClickListener {
-            val title = binding.noteTitleText.text.toString()
-            val description = binding.noteDescriptionText.text.toString()
+            val title = binding.noteTitleTextView.text.toString()
+            val description = binding.noteDescriptionTextView.text.toString()
 
             if (description.isNotEmpty()) {
                 viewModel.insert(Notes(noteTitle = title, noteText = description))

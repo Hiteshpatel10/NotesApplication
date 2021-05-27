@@ -1,6 +1,7 @@
 package com.example.notes.notesMain
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.notes.R
 import com.example.notes.database.Notes
 import com.example.notes.database.NotesDatabase
 import com.example.notes.databinding.FragmentNotesBinding
+import java.lang.Exception
 
 class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
 
@@ -53,13 +55,28 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
 
         //OnClickListeners
         binding.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.notesAddFragment)
+            try {
+                val arguments =
+                    NotesFragmentDirections.actionNotesFragmentToNotesAddFragment("", "")
+                findNavController().navigate(arguments)
+            } catch (e: Exception) {
+                Log.i("noteAdd", "$e")
+            }
         }
 
         return binding.root
     }
 
     override fun onItemClicked(note: Notes) {
-        findNavController().navigate(R.id.notesAddFragment)
+
+        val titleText = note.noteTitle
+        val descriptionText = note.noteText
+
+        val arguments =
+            NotesFragmentDirections.actionNotesFragmentToNotesAddFragment(
+                titleText,
+                descriptionText,
+            )
+        findNavController().navigate(arguments)
     }
 }

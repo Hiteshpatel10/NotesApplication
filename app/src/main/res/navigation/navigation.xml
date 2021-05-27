@@ -11,9 +11,20 @@
         <action
             android:id="@+id/action_notesAddFragment_to_notesFragment"
             app:destination="@id/notesFragment" />
+        <argument
+            android:name="titleText"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.example.notes.notesMain.NotesFragment"
-        android:label="NotesFragment" />
+        android:label="NotesFragment" >
+        <action
+            android:id="@+id/action_notesFragment_to_notesAddFragment"
+            app:destination="@id/notesAddFragment" />
+
+    </fragment>
 </navigation>
