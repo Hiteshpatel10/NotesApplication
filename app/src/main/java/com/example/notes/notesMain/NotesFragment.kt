@@ -45,10 +45,14 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
         binding.notesRecyclerView.adapter = adapter
 
         //Observers
-
+        viewModel.allNotes.observe(viewLifecycleOwner, {
+            it?.let {
+                adapter.allNotes = it
+            }
+        })
 
         //OnClickListeners
-        binding.floatingActionButton.setOnClickListener{
+        binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.notesAddFragment)
         }
 

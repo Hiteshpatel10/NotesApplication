@@ -9,7 +9,7 @@ import com.example.notes.database.Notes
 
 class NotesListAdapter(private val listener: INotesListAdapter) : RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
-    private var allNotes = listOf<Notes>()
+     var allNotes = listOf<Notes>()
         set(value) {
             field = value
             notifyDataSetChanged()
