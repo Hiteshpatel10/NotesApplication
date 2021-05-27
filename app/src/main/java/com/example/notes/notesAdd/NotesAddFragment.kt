@@ -46,6 +46,7 @@ class NotesAddFragment : Fragment() {
                 viewModel.insert(Notes(noteTitle = title, noteText = description))
             }
 
+            findNavController().navigate(R.id.notesFragment)
         }
 
         return binding.root
