@@ -57,7 +57,7 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
         binding.floatingActionButton.setOnClickListener {
             try {
                 val arguments =
-                    NotesFragmentDirections.actionNotesFragmentToNotesAddFragment("", "")
+                    NotesFragmentDirections.actionNotesFragmentToNotesAddFragment("", "",0)
                 findNavController().navigate(arguments)
             } catch (e: Exception) {
                 Log.i("noteAdd", "$e")
@@ -69,13 +69,11 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
 
     override fun onItemClicked(note: Notes) {
 
-        val titleText = note.noteTitle
-        val descriptionText = note.noteText
-
         val arguments =
             NotesFragmentDirections.actionNotesFragmentToNotesAddFragment(
-                titleText,
-                descriptionText,
+                note.noteTitle,
+                note.noteText,
+                note.noteId
             )
         findNavController().navigate(arguments)
     }

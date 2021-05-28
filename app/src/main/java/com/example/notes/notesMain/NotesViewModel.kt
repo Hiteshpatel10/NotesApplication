@@ -15,9 +15,4 @@ class NotesViewModel(database: NotesDao): ViewModel() {
 
     val allNotes = repository.allNotes
 
-    fun delete(note: Notes){
-        viewModelScope.launch (Dispatchers.IO){
-            repository.delete(note)
-        }
-    }
 }

@@ -4,4 +4,6 @@
     <string name="title">Title</string>
     <string name="notes">Notes</string>
     <string name="add_notes">add_notes</string>
+    <string name="submit">Submit</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -9,15 +9,27 @@ import com.example.notes.database.NotesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NotesAddViewModel(database: NotesDao): ViewModel() {
+class NotesAddViewModel(database: NotesDao) : ViewModel() {
 
     val allNotes = database.getAllNotes()
 
     private val repository: NotesRepository = NotesRepository(database)
 
-     fun insert(note: Notes){
-        viewModelScope.launch (Dispatchers.IO){
+    fun insert(note: Notes) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.insert(note)
+        }
+    }
+
+    fun delete(note: Notes) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.delete(note)
+        }
+    }
+
+    fun searchDelete(id: Int){
+        viewModelScope.launch (Dispatchers.IO){
+            repository.searchDelete(id)
         }
     }
 }

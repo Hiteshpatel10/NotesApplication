@@ -12,5 +12,9 @@ class NotesRepository(private val notesDao: NotesDao) {
         notesDao.delete(note)
     }
 
+    fun searchDelete(id: Int){
+        notesDao.searchDelete(id)
+    }
+
     val allNotes: LiveData<List<Notes>> = notesDao.getAllNotes()
 }

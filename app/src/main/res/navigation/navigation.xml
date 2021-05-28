@@ -17,6 +17,9 @@
         <argument
             android:name="description"
             app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/notesFragment"

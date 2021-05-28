@@ -13,5 +13,5 @@ data class Notes(
     var noteText: String
 ){
     @PrimaryKey(autoGenerate = true)
-    var noteId = 0
+    var noteId: Int = 0
 }
