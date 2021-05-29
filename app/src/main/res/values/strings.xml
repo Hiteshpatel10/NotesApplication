@@ -6,4 +6,6 @@
     <string name="add_notes">add_notes</string>
     <string name="submit">Submit</string>
     <string name="delete">Delete</string>
+    <string name="search_note">Search Note</string>
+    <string name="note">Note</string>
 </resources>

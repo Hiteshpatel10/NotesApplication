@@ -15,6 +15,10 @@ class NotesListAdapter(private val listener: INotesListAdapter) : RecyclerView.A
             notifyDataSetChanged()
         }
 
+    fun setData(notes: List<Notes>){
+        allNotes = notes
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewHolder = ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.notes_list_recyclerview, parent, false)

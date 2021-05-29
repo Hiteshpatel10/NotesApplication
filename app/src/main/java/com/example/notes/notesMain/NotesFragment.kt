@@ -2,9 +2,8 @@ package com.example.notes.notesMain
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,12 +13,13 @@ import com.example.notes.R
 import com.example.notes.database.Notes
 import com.example.notes.database.NotesDatabase
 import com.example.notes.databinding.FragmentNotesBinding
-import java.lang.Exception
 
-class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
+class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
+    SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentNotesBinding
     private lateinit var viewModel: NotesViewModel
+    private lateinit var adapter: NotesListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +43,7 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
 
 
         //Adapter and RecyclerView
-        val adapter = NotesListAdapter(this)
+        adapter = NotesListAdapter(this)
         binding.notesRecyclerView.adapter = adapter
 
         //Observers
@@ -57,14 +57,55 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter {
         binding.floatingActionButton.setOnClickListener {
             try {
                 val arguments =
-                    NotesFragmentDirections.actionNotesFragmentToNotesAddFragment("", "",0)
+                    NotesFragmentDirections.actionNotesFragmentToNotesAddFragment("", "", 0)
                 findNavController().navigate(arguments)
             } catch (e: Exception) {
                 Log.i("noteAdd", "$e")
             }
         }
 
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            if (query.isNotEmpty()) {
+                searchDatabase(query)
+            }
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null) {
+            if (query.isNotEmpty()) {
+                searchDatabase(query)
+            }else{
+                viewModel.allNotes.observe(this, {
+                    adapter.allNotes = it
+                })
+            }
+        }
+        return true
+    }
+
+    private fun searchDatabase(query: String?) {
+        val searchQuery = "%$query%"
+
+        viewModel.searchNote(searchQuery).observe(this, {
+            it.let {
+                adapter.setData(it)
+            }
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.notes_menu, menu)
+        val search = menu.findItem(R.id.menuSearch)
+        val searchView = search?.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
     }
 
     override fun onItemClicked(note: Notes) {
