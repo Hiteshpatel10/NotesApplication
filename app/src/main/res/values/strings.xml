@@ -8,4 +8,5 @@
     <string name="delete">Delete</string>
     <string name="search_note">Search Note</string>
     <string name="note">Note</string>
+    <string name="splash_screen">splash screen</string>
 </resources>

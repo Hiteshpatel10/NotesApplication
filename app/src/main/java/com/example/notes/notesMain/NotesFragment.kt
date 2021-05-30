@@ -81,7 +81,7 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
         if (query != null) {
             if (query.isNotEmpty()) {
                 searchDatabase(query)
-            }else{
+            } else {
                 viewModel.allNotes.observe(this, {
                     adapter.allNotes = it
                 })
@@ -102,7 +102,7 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.notes_menu, menu)
-        val search = menu.findItem(R.id.menuSearch)
+        val search = menu.findItem(R.id.menuSearchNav)
         val searchView = search?.actionView as? SearchView
         searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)

@@ -23,8 +23,7 @@
             android:inputType="textShortMessage"
             android:textStyle="bold"
             android:autofillHints=""/>
-
-
+        
         <EditText
             android:id="@+id/noteDescriptionTextView"
             android:layout_width="match_parent"
