@@ -3,13 +3,12 @@ package com.example.notes.notesMain
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.notes.NotesListAdapter
 import com.example.notes.R
@@ -24,6 +23,8 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
     private lateinit var binding: FragmentNotesBinding
     private lateinit var viewModel: NotesViewModel
     private lateinit var adapter: NotesListAdapter
+    private val timeDelay = 2000
+    private var backPressed: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,12 +69,22 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
             }
         }
 
+        //DoubleBack Press To Exit
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            val navBuilder = NavOptions.Builder()
-            val navOptions = navBuilder.setPopUpTo(R.id.notesFragment, false).build()
-            NavHostFragment.findNavController(this@NotesFragment)
-                .navigate(R.id.notesFragment, null, navOptions)
+
+            if (backPressed + timeDelay > System.currentTimeMillis()) {
+                activity?.moveTaskToBack(true)
+                activity?.finish()
+            } else {
+                Toast.makeText(
+                    requireContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            backPressed = System.currentTimeMillis();
         }
+
+
 
         setHasOptionsMenu(true)
         return binding.root
