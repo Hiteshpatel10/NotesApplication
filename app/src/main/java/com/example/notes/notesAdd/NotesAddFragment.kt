@@ -81,7 +81,6 @@ class NotesAddFragment : Fragment() {
             }
         }
 
-
         setHasOptionsMenu(true)
         return binding.root
     }
