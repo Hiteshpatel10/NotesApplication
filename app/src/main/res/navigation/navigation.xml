@@ -10,7 +10,9 @@
         android:label="NotesAddFragment" >
         <action
             android:id="@+id/action_notesAddFragment_to_notesFragment"
-            app:destination="@id/notesFragment" />
+            app:destination="@id/notesFragment"
+            app:popUpTo="@id/notesFragment"
+            app:popUpToInclusive="false" />
         <argument
             android:name="titleText"
             app:argType="string" />
@@ -27,7 +29,9 @@
         android:label="NotesFragment" >
         <action
             android:id="@+id/action_notesFragment_to_notesAddFragment"
-            app:destination="@id/notesAddFragment" />
+            app:destination="@id/notesAddFragment"
+            app:popUpTo="@id/notesFragment"
+            app:popUpToInclusive="false" />
 
     </fragment>
 </navigation>

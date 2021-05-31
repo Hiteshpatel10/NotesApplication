@@ -3,16 +3,20 @@ package com.example.notes.notesMain
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.notes.NotesListAdapter
 import com.example.notes.R
 import com.example.notes.database.Notes
 import com.example.notes.database.NotesDatabase
 import com.example.notes.databinding.FragmentNotesBinding
+
 
 class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
     SearchView.OnQueryTextListener {
@@ -62,6 +66,13 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
             } catch (e: Exception) {
                 Log.i("noteAdd", "$e")
             }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val navBuilder = NavOptions.Builder()
+            val navOptions = navBuilder.setPopUpTo(R.id.notesFragment, false).build()
+            NavHostFragment.findNavController(this@NotesFragment)
+                .navigate(R.id.notesFragment, null, navOptions)
         }
 
         setHasOptionsMenu(true)

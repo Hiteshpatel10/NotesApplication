@@ -7,34 +7,60 @@
 
     </data>
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         android:orientation="vertical"
-        tools:context=".notesAdd.NotesAddFragment">
-
+        android:padding="8dp">
 
         <EditText
             android:id="@+id/noteTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/title"
-            android:inputType="textShortMessage"
-            android:textStyle="bold"
-            android:autofillHints=""/>
-        
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/noteDescriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeTextType="uniform"
             android:hint="@string/note"
-            android:paddingTop="30dp"
-            android:autofillHints=""
-            android:inputType="textMultiLine" />
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:paddingTop="16dp"
+            android:textSize="20sp" />
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottomAppBar"
+                style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:menu="@menu/bottom_nav_bar_add"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_24" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/add_notes"
+                app:layout_anchor="@id/bottomAppBar"
+                app:srcCompat="@drawable/ic_baseline_done_24"
+                tools:ignore="VectorDrawableCompat" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 </layout>

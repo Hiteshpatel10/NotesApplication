@@ -2,10 +2,13 @@ package com.example.notes.notesAdd
 
 import android.os.Bundle
 import android.text.Editable
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -47,38 +50,40 @@ class NotesAddFragment : Fragment() {
             binding.noteTitleTextView.text = title.toEditable()
             binding.noteDescriptionTextView.text = description.toEditable()
         }
+        //Bottom Navigation
+        binding.bottomAppBar.setNavigationOnClickListener {
+            // Handle navigation icon press
+            findNavController().navigate(R.id.notesFragment)
+        }
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.deleteButton -> {
+                    // Handle search icon press
+                    if (args.id != 0) {
+                        viewModel.searchDelete(args.id)
+                        findNavController().navigate(R.id.notesFragment)
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
+
+        binding.submitButton.setOnClickListener{
+            val title = binding.noteTitleTextView.text.toString()
+            val description = binding.noteDescriptionTextView.text.toString()
+
+            if (description.isNotEmpty()) {
+                viewModel.insert(Notes(noteTitle = title, noteText = description))
+                findNavController().navigate(R.id.notesFragment)
+            } else {
+                Toast.makeText(requireContext(), "Note Missing", Toast.LENGTH_LONG).show()
+            }
+        }
+
 
         setHasOptionsMenu(true)
         return binding.root
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val title = binding.noteTitleTextView.text.toString()
-        val description = binding.noteDescriptionTextView.text.toString()
-
-        return when (item.itemId) {
-            R.id.submitButton -> {
-                if (description.isNotEmpty()) {
-                    viewModel.insert(Notes(noteTitle = title, noteText = description))
-                    findNavController().navigate(R.id.notesFragment)
-                }else{
-                   Toast.makeText(requireContext(),"Note Missing",Toast.LENGTH_LONG).show()
-                }
-
-                true
-            }
-            R.id.deleteButton -> {
-                if(args.id!=0){
-                    viewModel.searchDelete(args.id)
-                    findNavController().navigate(R.id.notesFragment)
-                }
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }
