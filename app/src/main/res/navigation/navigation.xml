@@ -32,6 +32,13 @@
             app:destination="@id/notesAddFragment"
             app:popUpTo="@id/notesFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_notesFragment_to_signInFragment2"
+            app:destination="@id/signInFragment2" />
 
     </fragment>
+    <fragment
+        android:id="@+id/signInFragment2"
+        android:name="com.example.notes.login.SignInFragment"
+        android:label="SignInFragment" />
 </navigation>

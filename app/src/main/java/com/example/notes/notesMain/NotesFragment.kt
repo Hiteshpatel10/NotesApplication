@@ -1,5 +1,6 @@
 package com.example.notes.notesMain
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -15,6 +16,11 @@ import com.example.notes.R
 import com.example.notes.database.Notes
 import com.example.notes.database.NotesDatabase
 import com.example.notes.databinding.FragmentNotesBinding
+import com.example.notes.login.SplashScreen
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
@@ -69,6 +75,7 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
             }
         }
 
+
         //DoubleBack Press To Exit
         requireActivity().onBackPressedDispatcher.addCallback(this) {
 
@@ -81,13 +88,25 @@ class NotesFragment : Fragment(), NotesListAdapter.INotesListAdapter,
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            backPressed = System.currentTimeMillis();
+            backPressed = System.currentTimeMillis()
         }
 
 
 
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.signOut -> {
+                AuthUI.getInstance().signOut(requireContext())
+                startActivity(Intent(requireContext(),SplashScreen::class.java))
+            }
+            else -> return false
+        }
+        return super.onOptionsItemSelected(item)
+
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
